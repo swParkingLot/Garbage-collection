@@ -65,19 +65,33 @@
         }
         //---------------------------클릭시 마커 생성 이벤트---------------------------
         kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
-
+            var title = prompt("이 장소의 이름을 입력하세요 :")
             // 클릭한 위도, 경도 정보를 가져옵니다 
             var latlng = mouseEvent.latLng;
             //latlng에서 Latitude와 Longitude를 얻는 메소드
             var message = latlng.getLat()
             var message2 = latlng.getLng();
+            var message3 = message + " " + message2;
+            var test = [
+                {
+                    lat: message,
+                    lng: message2,
+                    title: title
+                }
+            ]
+            console.log(message)
+            console.log(message2)
+            console.log(message3)
+            console.log(test)
             // loca라는 변수에 위치저장
             var loca = new kakao.maps.LatLng(message, message2);
             //loca위치로 마커 생성
             var Tmark = new kakao.maps.Marker({
-                position: loca
+                position: loca,
+                title: title
             });
             Tmark.setMap(map);
+            //좌표값 쓰로잉은 위 쪽에 나온 변수를 mysql에 돌리는 전달하는 방법을 알아와야 할 것 같음.
         })
     </script>
 </body>
