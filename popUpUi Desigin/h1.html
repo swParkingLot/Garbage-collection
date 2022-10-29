@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+body{
+    background-color: black;
+}
+        #mainDiv{
+            background-color:white;
+            width: 480px;
+            height: 300px;
+            border-radius: 30px;
+            border: 4px #5fa873 solid;
+            text-align: center;
+        }
+        input{
+            width:300px;
+            height: 50px; 
+            background-color: #d6fae0;
+            border-radius: 10px;
+            border-color:rgba(0,0,0,0);  
+        }
+        #addImg{
+            height: 50px;
+            
+        }
+        .type{
+            width: 100px;
+        }
+        table{
+            margin: 0 auto;
+        }
+        .star{
+            width: 50px;
+        }
+       
+        #starbar{
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div id="mainDiv" >
+        <table>
+            <tr>
+                <td colspan="2">
+                    <input type="text" name="" id="">
+                </td>
+                <td>
+                    <img src="/imgAddButton.png" id="addImg" alt="imgAdder" onclick="//이미지업로드함수">
+                </td>
+            </tr>
+            <tr>
+                <td><img src="/recycleBin.png" alt="recycleBin" class="type"></td>
+                <td><img src="/toilet.svg.png" alt="toilet" class="type"></td>
+                <td><img src="/waterDispanser.png" alt="waterDispanser" class="type"></td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <img src="/greystar.png" class="star" id="greyStar">
+                    <img src="/greystar.png" class="star" id="greyStar">
+                    <img src="/greystar.png" class="star" id="greyStar">
+                    <img src="/greystar.png" class="star" id="greyStar">
+                    <img src="/greystar.png" class="star" id="greyStar">
+                    
+                </td>
+                <!-- <td>
+                    <img src="/starbar.png" id="starbar" alt="" style="position:fixed;z-index:3;">
+                    <span style="display: inline-block; position: fixed; background-color: yellow; width :300px; height: 55px;"></span>
+                </td> -->
+                <script>
+                    var t = document.getElementsByClassName("star");
+                    
+                    // t.addEventListner('mouseover',(event)=>{
+                    //     console.log(event.target.value)
+                    // })
+                    for (i=0;i<t.length;i++) {
+                        t[i].addEventListener('mouseover',function(event){
+                            if(event.target != t[0]){
+                                console.log("It's not 0 span")
+                            }
+                        event.target.src = "/goldstar.png"});
+                        t[i].addEventListener('mouseleave',function(event){
+                            event.target.src = "/greystar.png"
+                        })
+                    };
+
+                    
+                    
+                    // function starRank(elem){
+                    // elem.src = "/goldstar.png";
+                    // }
+                    // function scopeOut(elem){
+                    //     elem.src = "/greystar.png"
+                    // }
+                </script>
+            </tr>
+        </table>
+        <h1>sdaddjdjdjdjdjdjdjdjdjdjdj</h1>
+        <br>
+        <button type="submit" style="width:100px;height :25px">Submit</button>
+        <!-- 버튼 클릭시 Text, MarkerType, Scope, img 요소 Server, inde.html로 전달, Marker생성 -->
+        <button type="reset" style="width:100px;height :25px" >Reset</button>
+        <!--초기화, 모든 value를 초기화 한다.-->
+            
+        
+    </div>
+</body>
+</html>
