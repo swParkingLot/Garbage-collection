@@ -25,3 +25,22 @@ btn.addEventListener('click', ()=>{
     }
     
 })
+
+//--------------------- 로고 클릭 시 맵 한림대로 원위치
+function panTo() {
+  navigator.geolocation.getCurrentPosition(function(position) {
+  var lat = position.coords.latitude, // 위도
+  lon = position.coords.longitude; // 경도    
+
+  // 이동할 위도 경도 위치를 생성합니다 
+  var moveLatLon = new kakao.maps.LatLng(lat, lon);
+  
+  // 지도 중심을 부드럽게 이동시킵니다
+  // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+  map.panTo(moveLatLon);
+})
+
+}
+
+const logo = document.querySelector('.navbar__logo');
+logo.addEventListener('click', panTo);
