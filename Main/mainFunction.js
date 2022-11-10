@@ -1,7 +1,7 @@
-const btn = document.querySelector('.navbar__toggle-btn');
-const menu = document.querySelector('.navbar__menu');
+var btn = document.querySelector('.navbar__toggle-btn');
+var menu = document.querySelector('.navbar__menu');
 
-let iconBars = true;
+var iconBars = true;
 
 // 햄버거 메뉴 클릭 시
 btn.addEventListener('click', ()=>{
@@ -41,6 +41,5 @@ function panTo() {
 })
 
 }
-
-const logo = document.querySelector('.navbar__logo');
+var logo = document.querySelector('.navbar__logo');
 logo.addEventListener('click', panTo);
