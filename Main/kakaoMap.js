@@ -18,41 +18,56 @@ var container = document.getElementById('map');  //container = html파일에서 
 
         //---------------------------여러개의 마커 생성---------------------------
 
-var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다    
+        //마커 이미지 지정
+    var trashCan = '../Main/trashCan.png'
+    var waterDis = '../Main/waterDispancer.png'
+    var toilet = '../Main/toilet.png'
+
+    
 imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
 imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
-        var positions = [
 
-            //작성 형식, 타입 
+//마커의 세부(크기, 좌표와의 위치)
+    var typeOfMarker = {
+        toilet : new kakao.maps.MarkerImage(toilet, imageSize, imageOption),
+        trash : new kakao.maps.MarkerImage(trashCan, imageSize, imageOption),
+        waterDis : new kakao.maps.MarkerImage(waterDis, imageSize, imageOption)
+    }   
+
+        var markers = [
+            //마커들의 목록
             //{title : "마우스 호버시 나올 이름", latlng  <=이 latlng은 그저 잠시 사용하는 변수이름이기 때문에 소문자로 사용함: new kakao.maps.LatLng(latitude, longtude) <=기본 좌표 생성 코드  }
+            //마커의 타입, 이름, 위치 등을 지정 해 줌.
             /*못생긴 예시
             { title: "공학관", latlng: new kakao.maps.LatLng(37.8862885, 127.7357552) }, { title: "캠퍼스라이프센터", latlng: new kakao.maps.LatLng(37.8848667, 127.7372887) },{ title: "일송기념도서관",latlng: new kakao.maps.LatLng(37.8866485, 127.7401359)}
-        ]
-        */
+            */
+      
 
             {
                 title: "공학관",
-                latlng: new kakao.maps.LatLng(37.8862885, 127.7357552)
+                latlng: new kakao.maps.LatLng(37.8862885, 127.7357552),
+                type : typeOfMarker.waterDis
             },
             {
                 title: "캠퍼스라이프센터",
-                latlng: new kakao.maps.LatLng(37.8848667, 127.7372887)
+                latlng: new kakao.maps.LatLng(37.8848667, 127.7372887),
+                type : typeOfMarker.toilet
             },
             {
                 title: "일송기념도서관",
-                latlng: new kakao.maps.LatLng(37.8866485, 127.7401359)
+                latlng: new kakao.maps.LatLng(37.8866485, 127.7401359),
+                type : typeOfMarker.trash
             }
         ]
-        //for 구문으로 좌표들이 들어가 있는 배열  positions의 갯수 만큼 Marker 명령어를 실행함.
-        for (i = 0; i < positions.length; i++) {
+        //for 구문으로 좌표들이 들어가 있는 배열  markers의 갯수 만큼 Marker 명령어를 실행함.
+        for (i = 0; i < markers.length; i++) {
 
             var marker = new kakao.maps.Marker({
 
                 map: map,
-                position: positions[i].latlng,
-                title: positions[i].title,
-                image : markerImage
+                position: markers[i].latlng,
+                title: markers[i].title,
+                image : markers[i].type
 
             });
         }
