@@ -17,6 +17,11 @@ var container = document.getElementById('map');  //container = html파일에서 
 
 
         //---------------------------여러개의 마커 생성---------------------------
+
+var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다    
+imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
         var positions = [
 
             //작성 형식, 타입 
@@ -46,7 +51,8 @@ var container = document.getElementById('map');  //container = html파일에서 
 
                 map: map,
                 position: positions[i].latlng,
-                title: positions[i].title
+                title: positions[i].title,
+                image : markerImage
 
             });
         }
@@ -112,3 +118,41 @@ if (navigator.geolocation) {
         alert("위치를 찾을 수 없어요")
         
 }
+
+//이미지 들어간 마커 생성
+
+// var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다    
+//     imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+//     imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+// // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+// var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+//     markerPosition = new kakao.maps.LatLng(37.54699, 127.09598); // 마커가 표시될 위치입니다
+
+// // 마커를 생성합니다
+// var marker = new kakao.maps.Marker({
+//   position: markerPosition,
+//   image: markerImage // 마커이미지 설정 
+// });
+
+// // 마커가 지도 위에 표시되도록 설정합니다
+// marker.setMap(map);  
+
+// // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+// var content = '<div class="customoverlay">' +
+//     '  <a href="https://map.kakao.com/link/map/11394059" target="_blank">' +
+//     '    <span class="title">구의야구공원</span>' +
+//     '  </a>' +
+//     '</div>';
+
+
+// // 커스텀 오버레이가 표시될 위치입니다 
+// var position = new kakao.maps.LatLng(37.54699, 127.09598);  
+
+// // 커스텀 오버레이를 생성합니다
+// var customOverlay = new kakao.maps.CustomOverlay({
+//     map: map,
+//     position: position,
+//     content: content,
+//     yAnchor: 1 
+// });
