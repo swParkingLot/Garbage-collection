@@ -5,20 +5,6 @@ var options = {
 };
 var map = new kakao.maps.Map(container, options);  //지도 생성 위치 = container, 설정값 = options
 
-//---------------------------기본 마커 생성---------------------------
-/*
-  var marker1 = new kakao.maps.LatLng(37.8862885, 127.7357552);  //한림대학교 공학관 좌표로 생성될 위치 설정
-    var marker = new kakao.maps.Marker({
-        position: marker1
-    })
-    marker.setMap(map);
-    // 단일 마커 생성
-*/
-
-
-//---------------------------여러개의 마커 생성---------------------------
-
-//마커 이미지 지정
 var trashCan = '../Main/trashCan.png'
 var water = '../Main/waterDispancer.png'
 var toilet = '../Main/toilet.png'
@@ -32,6 +18,12 @@ var typeOfMarker = {
     toilet: new kakao.maps.MarkerImage(toilet, imageSize, imageOption),
     trash: new kakao.maps.MarkerImage(trashCan, imageSize, imageOption),
     water: new kakao.maps.MarkerImage(water, imageSize, imageOption)
+}
+
+function getType(select) {
+    if (select == toilet) {
+        return 'typeOfMarker.toilet';
+    }
 }
 
 var markers = [
@@ -77,38 +69,47 @@ for (i = 0; i < markers.length; i++) {
 //---------------------------클릭시 마커 생성 이벤트---------------------------
 kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
     var latlng = mouseEvent.latLng;
-    var message = latlng.getLat()
-    var message2 = latlng.getLng();
-    var message3 = message + " " + message2;
-    console.log(message)
-    console.log(message2)
-    console.log(message3)
-    var position = new kakao.maps.LatLng(message, message2);
-     
-document.getElementById("mainDiv").style.display = "block"
-document.getElementById("blackside").style.display = "block"
+    var lat = latlng.getLat()
+    var lng = latlng.getLng();
+    var position = new kakao.maps.LatLng(lat, lng);
+    //마커제작 폼 보이게 하기
+    document.getElementById("mainDiv").style.display = "block"
+    document.getElementById("blackside").style.display = "block"
 
+    var submitbtn = document.getElementById("submitButton")
+    var resetBtn = document.getElementById("resetButton")
+    var typeTags = document.querySelectorAll(".typeTag")
+    var titleText = document.getElementById("opinion_txt")
+    var select
+
+    resetBtn.addEventListener('click', function () {
+        titleText.value = ""
+    })
+    typeTags.forEach(type => {
+        type.addEventListener('click', function () { select = type.id })
+    });
+
+    submitbtn.addEventListener('click', function () {
+        console.log(select);  //선택된 태그 
+        console.log(titleText.value)  //input창 안의 value
+
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: position,
+            title: titleText.value,
+            image: getType(select)
+        })
+        markers.push(marker)
+        console.log(markers.length)
+        document.getElementById("mainDiv").style.display = "none"
+        document.getElementById("blackside").style.display = "none"
+        titleText.value = ""
+
+    })
 })
 
 //div창 안의 버튼들
-var submitbtn = document.getElementById("submitButton")
-var resetBtn = document.getElementById("resetButton")
-var typeTags = document.querySelectorAll(".typeTag")
-var titleText = document.getElementById("opinion_txt")
-var select
-typeTags.forEach(type => {
-    type.addEventListener('click', function () {
-        console.log(type.id)
-        select = type.id
-    })
-});
-submitbtn.addEventListener('click',function(){
-    console.log(select);
-    console.log(titleText.value)
-})
-resetBtn.addEventListener('click',function(){
-  
-})
+
 //---------------- geolocation 이용해서 현재 위치 받아 지도의 중심으로 설정------------
 if (navigator.geolocation) {
 
