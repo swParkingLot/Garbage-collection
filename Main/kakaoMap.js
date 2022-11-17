@@ -21,11 +21,6 @@ var typeOfMarker = {
     smoke: new kakao.maps.MarkerImage(smoke, imageSize, imageOption)
 }
 
-function getType(select) {
-    if (select == toilet) {
-        return 'typeOfMarker.toilet';
-    }
-}
 
 var markers = [
     {
@@ -92,7 +87,16 @@ kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
 
     submitbtn.addEventListener('click', function () {
         console.log(select);  //선택된 태그 
-        var theType = `typeOfMarker.${select}`
+        var theType
+        // switch (select) {
+        //     case smoke: theType = typeOfMarker.smoke; break;
+        //     case toilet: theType = typeOfMarker.toilet; break;
+        //     case water: theType = typeOfMarker.water; break;
+        //     case trash: theType = typeOfMarker.trash; break;
+        // }
+        if (select == smoke) {
+            theType = typeOfMarker.smoke;
+        }
         console.log(theType)
         console.log(titleText.value)  //input창 안의 value
 
