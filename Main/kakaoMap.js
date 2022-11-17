@@ -8,7 +8,7 @@ var map = new kakao.maps.Map(container, options);  //지도 생성 위치 = cont
 var trashCan = '../Main/trashCan.png'
 var water = '../Main/waterDispancer.png'
 var toilet = '../Main/toilet.png'
-
+var smoke = '../Main/smoke.png'
 
 imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
     imageOption = { offset: new kakao.maps.Point(27, 69) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
@@ -17,7 +17,8 @@ imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
 var typeOfMarker = {
     toilet: new kakao.maps.MarkerImage(toilet, imageSize, imageOption),
     trash: new kakao.maps.MarkerImage(trashCan, imageSize, imageOption),
-    water: new kakao.maps.MarkerImage(water, imageSize, imageOption)
+    water: new kakao.maps.MarkerImage(water, imageSize, imageOption),
+    smoke: new kakao.maps.MarkerImage(smoke, imageSize, imageOption)
 }
 
 function getType(select) {
@@ -27,14 +28,6 @@ function getType(select) {
 }
 
 var markers = [
-    //마커들의 목록
-    //{title : "마우스 호버시 나올 이름", latlng  <=이 latlng은 그저 잠시 사용하는 변수이름이기 때문에 소문자로 사용함: new kakao.maps.LatLng(latitude, longtude) <=기본 좌표 생성 코드  }
-    //마커의 타입, 이름, 위치 등을 지정 해 줌.
-    /*못생긴 예시
-    { title: "공학관", latlng: new kakao.maps.LatLng(37.8862885, 127.7357552) }, { title: "캠퍼스라이프센터", latlng: new kakao.maps.LatLng(37.8848667, 127.7372887) },{ title: "일송기념도서관",latlng: new kakao.maps.LatLng(37.8866485, 127.7401359)}
-    */
-
-
     {
         title: "공학관",
         latlng: new kakao.maps.LatLng(37.8862885, 127.7357552),
@@ -42,14 +35,20 @@ var markers = [
     },
     {
         title: "캠퍼스라이프센터",
-        latlng: new kakao.maps.LatLng(37.8848667, 127.7372887),
+        latlng: new kakao.maps.LatLng(37.8866485, 127.7401359),
         type: typeOfMarker.toilet
     },
     {
         title: "일송기념도서관",
-        latlng: new kakao.maps.LatLng(37.8866485, 127.7401359),
+        latlng: new kakao.maps.LatLng(37.8848667, 127.7372887),
         type: typeOfMarker.trash
+    },
+    {
+        title: "체육기자재실 옆 흡연구역",
+        latlng: new kakao.maps.LatLng(37.887549635515896, 127.73865471029242),
+        type: typeOfMarker.smoke
     }
+
 ]
 //for 구문으로 좌표들이 들어가 있는 배열  markers의 갯수 만큼 Marker 명령어를 실행함.
 for (i = 0; i < markers.length; i++) {
@@ -71,6 +70,7 @@ kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
     var latlng = mouseEvent.latLng;
     var lat = latlng.getLat()
     var lng = latlng.getLng();
+    console.log(lat, lng)
     var position = new kakao.maps.LatLng(lat, lng);
     //마커제작 폼 보이게 하기
     document.getElementById("mainDiv").style.display = "block"
@@ -84,6 +84,7 @@ kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
 
     resetBtn.addEventListener('click', function () {
         titleText.value = ""
+        select = undefined
     })
     typeTags.forEach(type => {
         type.addEventListener('click', function () { select = type.id })
@@ -91,13 +92,15 @@ kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
 
     submitbtn.addEventListener('click', function () {
         console.log(select);  //선택된 태그 
+        var theType = `typeOfMarker.${select}`
+        console.log(theType)
         console.log(titleText.value)  //input창 안의 value
 
         var marker = new kakao.maps.Marker({
             map: map,
             position: position,
             title: titleText.value,
-            image: getType(select)
+            image: theType
         })
         markers.push(marker)
         console.log(markers.length)

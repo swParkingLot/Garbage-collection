@@ -70,11 +70,11 @@
         <img src="imgs/waterDispanser.png" style="cursor: pointer;">
         <p>정수기</p>
       </div>
-      <div id="bin" class="typeTag">
+      <div id="trash" class="typeTag">
         <img src="imgs/bin.png" style="cursor: pointer;">
         <p>쓰레기통</p>
       </div>
-      <div id="smoking" class="typeTag">
+      <div id="smoke" class="typeTag">
         <img src="imgs/smoking.png" style="cursor: pointer;">
         <p>흡연구역</p>
       </div>
@@ -82,7 +82,8 @@
     <div class="opinion">
       <form action="" name="opinion"
         style="display: flex; justify-content: center; padding-top: 70px;margin-left: -30px;">
-        <input id="opinion_txt" class="opinion_txt" type="text" placeholder="이곳에 장소 이름을 입력하세요.">
+        <input id="opinion_txt" class="opinion_txt" type="text" placeholder="이곳에 장소 이름을 입력하세요."
+          onfocus="this.placeholder=' '" onblur="this.placeholder = '이곳에 장소 이름을 입력하세요.'">
         <div class="inputBtn">
           <input type="button" value="Submit" id="submitButton">
           <input type="button" value="Reset" id="resetButton">
