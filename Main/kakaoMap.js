@@ -87,26 +87,33 @@ kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
 
     submitbtn.addEventListener('click', function () {
         console.log(select);  //선택된 태그 
-        var theType
-        // switch (select) {
-        //     case smoke: theType = typeOfMarker.smoke; break;
-        //     case toilet: theType = typeOfMarker.toilet; break;
-        //     case water: theType = typeOfMarker.water; break;
-        //     case trash: theType = typeOfMarker.trash; break;
-        // }
-        if (select == smoke) {
-            theType = typeOfMarker.smoke;
+        var theType;
+        switch (select) {
+            case 'smoke': theType = typeOfMarker.smoke; break;
+            case 'toilet': theType = typeOfMarker.toilet; break;
+            case 'water': theType = typeOfMarker.water; break;
+            case 'trash': theType = typeOfMarker.trash; break;
         }
+        // if (select == smoke) {
+        //     theType = typeOfMarker.smoke;
+        // }
         console.log(theType)
         console.log(titleText.value)  //input창 안의 value
 
-        var marker = new kakao.maps.Marker({
+        // var marker = new kakao.maps.Marker({
+        //     map: map,
+        //     position: position,
+        //     title: titleText.value,
+        //     image: theType
+        // })
+        var marker2 = {
             map: map,
             position: position,
             title: titleText.value,
             image: theType
-        })
-        markers.push(marker)
+        }
+        new kakao.maps.Marker(marker2)
+        markers.push(marker2)
         console.log(markers.length)
         document.getElementById("mainDiv").style.display = "none"
         document.getElementById("blackside").style.display = "none"
