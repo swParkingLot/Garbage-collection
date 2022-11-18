@@ -98,7 +98,7 @@ function makeMarker(position) {
             case 'smoke': theType = typeOfMarker.smoke; break;
             case 'toilet': theType = typeOfMarker.toilet; break;
             case 'water': theType = typeOfMarker.water; break;
-            case 'trash': theType = typeOfMarker.trash; break;
+            case 'trashCan': theType = typeOfMarker.trash; break;
         }
         addMarker(position, titleText.value, theType);
         console.log(markers.length)

@@ -29,16 +29,51 @@ for (i = 0; i < markers.length; i++) {
 }
 
 
+
+var submitbtn = document.getElementById("submitButton")
+var resetBtn = document.getElementById("resetButton")
+var typeTags = document.querySelectorAll(".typeTag")
+var titleText = document.getElementById("opinion_txt")
+var select
+
+resetBtn.addEventListener('click', function () {
+    titleText.value = ""
+    select = undefined
+})
+typeTags.forEach(type => {
+    type.addEventListener('click', function () { select = type.id })
+});
+
+submitbtn.addEventListener('click', function () {
+    console.log(select);  //선택된 태그 
+    lat = 37.8866485
+    lng = 127.7401359,
+        document.getElementById("mainDiv").style.display = "none"
+    document.getElementById("blackside").style.display = "none"
+    addMarker(lat, lng, titleText.value, select)
+    titleText.value = ""
+})
+
+
 function addMarker(lat, lng, title, image) {
     var thisMarker = [title, lat, lng, image]
     markers.push(thisMarker);
     console.log(markers)
+    var i = markers.length + 1
+    marker = new kakao.maps.Marker({
+        map: map,
+        title: markers[i][0],
+        position: new kakao.maps.LatLng(markers[i][1], markers[i][2]),
+        image: new kakao.maps.MarkerImage(markers[i][3], imageSize, imageOption)
+    })
 }
 kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
+    document.getElementById("mainDiv").style.display = "block"
+    document.getElementById("blackside").style.display = "block"
     var latlng = mouseEvent.latLng;
     var lat = latlng.getLat()
     var lng = latlng.getLng();
     var title = "새로 생성된 마커"
     var image = trashCan;
-    addMarker(lat, lng, title, image)
+
 })
