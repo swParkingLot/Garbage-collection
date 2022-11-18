@@ -43,7 +43,6 @@ var markers = [
         latlng: new kakao.maps.LatLng(37.887549635515896, 127.73865471029242),
         type: typeOfMarker.smoke
     }
-
 ]
 //for 구문으로 좌표들이 들어가 있는 배열  markers의 갯수 만큼 Marker 명령어를 실행함.
 for (i = 0; i < markers.length; i++) {
