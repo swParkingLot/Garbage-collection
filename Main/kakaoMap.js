@@ -61,16 +61,23 @@ for (i = 0; i < markers.length; i++) {
 
 
 //---------------------------클릭시 마커 생성 이벤트---------------------------
-kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
-    var latlng = mouseEvent.latLng;
-    var lat = latlng.getLat()
-    var lng = latlng.getLng();
-    console.log(lat, lng)
-    var position = new kakao.maps.LatLng(lat, lng);
-    //마커제작 폼 보이게 하기
+
+function addMarker(position, title, type) {
+    var marker = new kakao.maps.Marker({
+        map: map,
+        position: position,
+        title: title,
+        image: type
+    })
+    marker.setMap(map);
+    markers.push(marker);
+}
+
+
+
+function makeMarker(position) {
     document.getElementById("mainDiv").style.display = "block"
     document.getElementById("blackside").style.display = "block"
-
     var submitbtn = document.getElementById("submitButton")
     var resetBtn = document.getElementById("resetButton")
     var typeTags = document.querySelectorAll(".typeTag")
@@ -94,34 +101,34 @@ kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
             case 'water': theType = typeOfMarker.water; break;
             case 'trash': theType = typeOfMarker.trash; break;
         }
-        // if (select == smoke) {
-        //     theType = typeOfMarker.smoke;
-        // }
-        console.log(theType)
-        console.log(titleText.value)  //input창 안의 value
-
-        // var marker = new kakao.maps.Marker({
-        //     map: map,
-        //     position: position,
-        //     title: titleText.value,
-        //     image: theType
-        // })
-        var marker2 = {
-            map: map,
-            position: position,
-            title: titleText.value,
-            image: theType
-        }
-        new kakao.maps.Marker(marker2)
-        markers.push(marker2)
+        addMarker(position, titleText.value, theType);
         console.log(markers.length)
         document.getElementById("mainDiv").style.display = "none"
         document.getElementById("blackside").style.display = "none"
         titleText.value = ""
 
     })
+}
+kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
+    var latlng = mouseEvent.latLng;
+    var lat = latlng.getLat()
+    var lng = latlng.getLng();
+    console.log(lat, lng)
+    var position = new kakao.maps.LatLng(lat, lng);
+    makeMarker(position)
+    //마커제작 폼 보이게 하기
 })
 
+document.getElementById("centerMarker").addEventListener('click', function () {
+    navigator.geolocation.getCurrentPosition(function (position) {
+
+        var lat = position.coords.latitude, // 위도
+            lng = position.coords.longitude; // 경도
+        var position = new kakao.maps.LatLng(lat, lng);
+        makeMarker(position)
+    })
+
+})
 //div창 안의 버튼들
 
 //---------------- geolocation 이용해서 현재 위치 받아 지도의 중심으로 설정------------
