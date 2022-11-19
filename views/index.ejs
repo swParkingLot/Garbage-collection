@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Kakao 지도 시작하기</title>
+    <!-- Navigater-->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <script src="https://kit.fontawesome.com/4766a3009c.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/formDesigin.css">
+    <!--Navigater-->
+</head>
+
+<body>
+    <!--div 폼-->
+    
+        <div id="mainDiv" >
+            <!-- 이미지 삽입, 개인 평점 -->
+            <div class="header">
+        
+              <div class="header_left">
+                <p> 이미지 삽입 </p>
+        
+                <!-- 이미지 삽입 -->
+                <form method="post" enctype="multipart/form-data">
+                  <label for="chooseFile">
+                    <img src="/imgs/addBtn.png"  style="cursor: pointer;">
+                  </label>
+                  <input type="file" id="chooseFile" name="chooseFile" accept="image/*" onchange="loadFile(this)">
+                </form>
+              </div>
+        
+              <!--평점-->
+              <div class="header_right">
+                <p class="text_stars">개인 평점</p>
+                <div class="starpoint_wrap">
+                  <div class="starpoint_box">
+                    <label for="starpoint_1" class="label_star" title="0.5"><span class="blind">0.5점</span></label>
+                    <label for="starpoint_2" class="label_star" title="1"><span class="blind">1점</span></label>
+                    <label for="starpoint_3" class="label_star" title="1.5"><span class="blind">1.5점</span></label>
+                    <label for="starpoint_4" class="label_star" title="2"><span class="blind">2점</span></label>
+                    <label for="starpoint_5" class="label_star" title="2.5"><span class="blind">2.5점</span></label>
+                    <label for="starpoint_6" class="label_star" title="3"><span class="blind">3점</span></label>
+                    <label for="starpoint_7" class="label_star" title="3.5"><span class="blind">3.5점</span></label>
+                    <label for="starpoint_8" class="label_star" title="4"><span class="blind">4점</span></label>
+                    <label for="starpoint_9" class="label_star" title="4.5"><span class="blind">4.5점</span></label>
+                    <label for="starpoint_10" class="label_star" title="5"><span class="blind">5점</span></label>
+                    <input type="radio" name="starpoint" id="starpoint_1" class="star_radio">
+                    <input type="radio" name="starpoint" id="starpoint_2" class="star_radio">
+                    <input type="radio" name="starpoint" id="starpoint_3" class="star_radio">
+                    <input type="radio" name="starpoint" id="starpoint_4" class="star_radio">
+                    <input type="radio" name="starpoint" id="starpoint_5" class="star_radio">
+                    <input type="radio" name="starpoint" id="starpoint_6" class="star_radio">
+                    <input type="radio" name="starpoint" id="starpoint_7" class="star_radio">
+                    <input type="radio" name="starpoint" id="starpoint_8" class="star_radio">
+                    <input type="radio" name="starpoint" id="starpoint_9" class="star_radio">
+                    <input type="radio" name="starpoint" id="starpoint_10" class="star_radio">
+                    <span class="starpoint_bg"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="type">
+              <div id="toilet">
+                <img src="/imgs/formToilet.png"  style="cursor: pointer;">
+                <p>화장실</p>
+              </div>
+              <div id="water">
+                <img src="/imgs/formWater.png"  style="cursor: pointer;">
+                <p>정수기</p>
+              </div>
+              <div id="bin">
+                <img src="/imgs/formBin.png"  style="cursor: pointer;">
+                <p>쓰레기통</p>
+              </div>
+              <div id="smoking">
+                <img src="/imgs/formSmoke.png"  style="cursor: pointer;">
+                <p>흡연구역</p>
+              </div>
+            </div>
+
+            <!--의견란-->
+            <div class="opinion">
+              <form action="/posts" method = "post" name="opinion"
+                style="display: flex; justify-content: center; padding-top: 70px;margin-left: -30px;">
+                <input class="opinion_txt" name="opinion_txt" id = "opinion_txt" type="text" required/>
+                <div class="inputBtn">
+                  <!--SUBMIT-->
+                  <input type="button" value="Submit" id="submitButton" onclick='post_position()'>
+                  <input type="button" value="Reset" id="resetButton">
+                </div>
+              </form>
+            </div>
+    </div>
+    <div id="blackside"></div>
+
+
+
+    <!--Navigater-->
+    <nav id="navbar">
+        <div class="navbar__logo">
+            <i class="fab fa-diaspora"></i>
+            <a href="#"></a>
+        </div>
+
+        <!-- 햄버거 버튼 -->
+        <button class="navbar__toggle-btn">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- 메뉴 -->
+    <div class="navbar__menu" style="display: none;">
+        <ul class="navbar__menu">
+            <li class="navbar__menu__item" data-link="#object1">object1</li>
+            <li class="navbar__menu__item" data-link="#object2">object2</li>
+            <li class="navbar__menu__item" data-link="#object3">object3</li>
+        </ul>
+    </div>
+    <!--Navigater-->
+
+    <div id="map" style="height:100vh;position :relative " ></div>
+    <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f490d25c858186e74a600e81e242471c"></script>
+    <script src="/js/kakaoMap.js"></script>
+
+
+
+
+   
+</body>
+
+</html>
+<script src="/js/mainFunction.js"></script>
+<script>
+  
+  function post_postion(){
+
+    
+    $.ajax({
+      url : '/write',
+      dataType: 'json',
+      type: POST,
+      data:{
+        //submit 누를시 보낼 데이터
+        Content : $('#opinion_txt').val(), // 문의
+        Grade : $('#title').val(), //평점 -> 고민해보기
+        PostionLat : $('#lat').val(), //경도
+        PostionLng : $('#lng').val() //위도
+        
+      },
+      success: function(result){
+        if(result.msg == 'success'){
+          alert('글이 등록 되었습니다.')
+        } else{
+          alert(result.msg);
+        }
+      }
+    });
+  }
+</script>

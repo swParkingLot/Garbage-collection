@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      background-color: grey;
+    }
+
+    .maindiv{
+      width: 400px;
+      height: 150px;
+      display: flex;
+      background-color: white;
+      border: 2px black solid;
+      flex-direction: column;
+
+    }
+    
+    
+    
+    .stars {
+      display: flex;
+      align-items: center;
+      width: 130px;
+      height: 35px;
+      padding-left: 10px;
+      margin: 8px;
+      border-radius: 10px;
+      background-color:  rgb(226, 240, 217);
+    }
+
+    .header {
+      width: 380px;
+      height: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding : 8px;
+    }
+    
+    .header input {
+      /* margin-left: 10px; */
+      width: 150px;
+      background-color: transparent;
+      outline: 0;
+      border-width: 0 0 2px;
+      border-color: rgb(165, 177, 157);
+      line-height: 30px;
+    }
+
+    .header_btn {
+      border: 1px solid rgb(165, 177, 157);
+      background-color: whitesmoke;
+    }
+
+    .opinion {
+      width: 400px;
+      padding-left: 10px;
+      font-size: small;
+    }
+
+  </style>
+</head>
+<body>
+    <form action="get" action="/board/detail">
+        <div class="maindiv">
+
+            <div class="header">
+               <input type="text" class="title" placeholder="Title">
+               <!--getTitle-->
+               <button class="header_btn">X</button>
+            </div>
+        
+            <div class="opinion">
+              <p> 한줄평 예시</p>
+              <!--getOpinion-->
+              <textarea id="getOpinion" cols="30" rows="10"></textarea>
+            </div>
+              
+            <div class="stars">
+              <p style="font-size: small;">평점 : &nbsp</p> 
+              <img src="imgs/goldstar.png" alt="" style="width:20px; "> 
+              <!--getStar-->
+              <textarea id="getStar" cols="30" rows="10"></textarea>
+              <p style="font-size: small; font-weight: bold;"> &nbsp X &nbsp </p>
+            </div>
+            
+          </div>
+
+    </form>
+ 
+    <script>
+      const borderDate = urlParams.get("borderDate");
+      
+      $(document).ready(function(){
+        get_detail()
+      })
+
+      function get_detail(){
+        $.ajax({
+          type: "GET",
+          url: '/${borderDate}', //상세보기 클릭시 링크(ex. localhost:3000/1)
+          data: {},
+          success: function(response){
+            let borderDetail = response["detail"];
+            let dateDetail = bordersDetail['borderDate'];
+            // -> 시간 표시 
+            let date = moment(bordersDetail['borderDate']).format('YYY-MM-DD HH:mm');
+
+            $("#getStar").val(borderDetail["postStar"]);
+            $("#getOpinion").val(borderDetail["postOpinon"]);
+          }
+        })
+      }
+    </script>
+</body>
+</html>
