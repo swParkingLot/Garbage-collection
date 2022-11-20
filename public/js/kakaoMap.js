@@ -108,6 +108,7 @@ function makeMarker(position) {
 
     })
 }
+
 kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
     var latlng = mouseEvent.latLng;
     var lat = latlng.getLat()
@@ -128,6 +129,8 @@ document.getElementById("centerMarker").addEventListener('click', function () {
     })
 
 })
+
+
 //div창 안의 버튼들
 
 //---------------- geolocation 이용해서 현재 위치 받아 지도의 중심으로 설정------------
@@ -161,3 +164,4 @@ if (navigator.geolocation) {
     alert("위치를 찾을 수 없어요")
 
 }
+

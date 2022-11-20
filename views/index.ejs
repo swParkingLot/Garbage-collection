@@ -124,40 +124,38 @@
     <div id="map" style="height:100vh;position :relative " ></div>
     <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f490d25c858186e74a600e81e242471c"></script>
-    <script src="/js/kakaoMap.js"></script>
-
-
-
-
+    <script src="/js/kakaoMap.js">
+      
+    </script>
+   <script>
+    function post_position(){
+        console.log(lat);
+        console.log(lng);
+        
+        $.ajax({
+          url : '/sendData', //sendData 주소로
+          async: true, // 동기화 - 서버에서 반응이 올때까지 기다림
+          dataType: 'json', 
+          type: 'Post', // POST 방식으로
+          data:{
+            //submit 누를시 보낼 데이터
+            //Content : $('#opinion_txt').val(), // 문의
+            //Grade : $('#title').val(), //평점
+            "lat" : lat,
+            "lng" : lng
+          },
+          success: function(result){
+            if(result.msg == 'success'){
+              alert('글이 등록 되었습니다.')
+            } else{
+              alert(result.msg);
+            }
+          }
+        });
+      }
+   </script>
    
 </body>
 
 </html>
 <script src="/js/mainFunction.js"></script>
-<script>
-  
-  function post_postion(){
-
-    
-    $.ajax({
-      url : '/write',
-      dataType: 'json',
-      type: POST,
-      data:{
-        //submit 누를시 보낼 데이터
-        Content : $('#opinion_txt').val(), // 문의
-        Grade : $('#title').val(), //평점 -> 고민해보기
-        PostionLat : $('#lat').val(), //경도
-        PostionLng : $('#lng').val() //위도
-        
-      },
-      success: function(result){
-        if(result.msg == 'success'){
-          alert('글이 등록 되었습니다.')
-        } else{
-          alert(result.msg);
-        }
-      }
-    });
-  }
-</script>

@@ -29,10 +29,10 @@ app.get('/',(req, res)=>{
 });
 
 
-app.post('/write',async(req,res)=> {
+app.post('/sendData',async(req,res)=> {
 
-    const{} = req.body;
-    isExist = await borders.find({boardDate});
+    console.log(req.body);
+    res.json({ok:true});
     
 })
 
